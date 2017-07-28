@@ -40,7 +40,7 @@ app.route('/')
 
 app.route('/api/whoami')
     .get(function(req, res) {
-		  var ip = req.ip;
+		  var ip = req.get('X-Forwarded-For').split(',')[0];
       var language = req.get('Accept-Language').split(',')[0];
       var os = req.get('User-Agent').split('(')[1].split(')')[0];
       var result = {
