@@ -36,7 +36,20 @@ app.route('/_api/package.json')
 app.route('/')
     .get(function(req, res) {
 		  res.sendFile(process.cwd() + '/views/index.html');
-    })
+    });
+
+app.route('/api/whoami')
+    .get(function(req, res) {
+		  var ip = req.ip;
+      var language = req.get('Accept-Language').split(',')[0];
+      var os = req.get('User-Agent').split('(')[1].split(')')[0];
+      var result = {
+        'ipaddress': ip,
+        'language': language,
+        'software': os
+      };
+      res.send(JSON.stringify(result));
+    });
 
 // Respond not found to all the wrong routes
 app.use(function(req, res, next){
